@@ -1,0 +1,76 @@
+﻿@model AddPayrollViewModel
+
+@{
+    ViewData["Title"] = "Add Payroll";
+    Layout = "/Features/Shared/_Layout.cshtml";
+
+    SelectList employeeOptions = new SelectList(Model.Employees, "Id", "Name");
+}
+
+<h2>Add Payroll</h2>
+<a asp-action="Index" class="btn btn-primary mt-2 mb-3">Back</a>
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Add" method="post">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group mb-3">
+                <label asp-for="EmployeeId" class="control-label"></label>
+                <select asp-for="EmployeeId" asp-items="employeeOptions" class="form-control">
+                    <option value="">-- Select Employee --</option>
+                </select>
+                <span asp-validation-for="EmployeeId" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="Month" class="control-label"></label>
+                <input asp-for="Month" class="form-control" />
+                <span asp-validation-for="Month" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="Year" class="control-label"></label>
+                <input asp-for="Year" class="form-control" />
+                <span asp-validation-for="Year" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <h5>Allowances</h5>
+                <div id="allowances"></div>
+                <button class="btn btn-sm btn-primary" type="button" onclick="addAllowance()">Add Allowance</button>
+            </div>
+            <div class="mb-3">
+                <h5>Deductions</h5>
+                <div id="deductions"></div>
+                <button class="btn btn-sm btn-primary" type="button" onclick="addDeduction()">Add Deduction</button>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary w-100" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
+    <script>
+        function addAllowance() {
+            let index = $("#allowances .form-group").length;
+            $("#allowances").append(`
+                <div class="form-group">
+                    <input name="Allowances[${index}].Type" placeholder="Type" class="form-control mb-1" />
+                    <input name="Allowances[${index}].Amount" placeholder="Amount" type="number" class="form-control mb-3" />
+                </div>
+            `);
+        }
+
+        function addDeduction() {
+            let index = $("#deductions .form-group").length;
+            $("#deductions").append(`
+                <div class="form-group">
+                    <input name="Deductions[${index}].Type" placeholder="Type" class="form-control mb-1" />
+                    <input name="Deductions[${index}].Amount" placeholder="Amount" type="number" class="form-control mb-3" />
+                </div>
+            `);
+        }
+    </script>
+}

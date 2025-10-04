@@ -1,0 +1,92 @@
+﻿@model ReportsViewModel
+
+@{
+    ViewData["Title"] = "Reports";
+    Layout = "/Features/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <h2>Reports</h2>
+
+    <h4 class="mt-3">Leave Balances</h4>
+    <table class="table table-bordered">
+        <tr><th>Employee</th><th>Balance</th></tr>
+        @foreach(var item in Model.LeaveBalances)
+        {
+            <tr><td>@item.EmployeeName</td><td>@item.LeaveBalance</td></tr>
+        }
+    </table>
+
+    <h4 class="mt-5">Department Payrolls</h4>
+    <table class="table table-bordered">
+        <tr><th>Department</th><th>Month</th><th>Year</th><th>Total Payroll</th></tr>
+        @foreach(var item in Model.DepartmentPayrolls)
+        {
+            <tr>
+                <td>@item.Department</td>
+                <td>@item.Month</td>
+                <td>@item.Year</td>
+                <td>@item.TotalPayroll</td>
+            </tr>
+        }
+    </table>
+
+    <h4 class="mt-5">Best Attendance</h4>
+    <table class="table table-bordered">
+        <tr><th>Employee</th><th>Absences</th></tr>
+        @foreach(var item in Model.BestAttendance)
+        {
+            <tr><td>@item.EmployeeName</td><td>@item.Absences</td></tr>
+        }
+    </table>
+
+    <h4 class="mt-5">Dashboard</h4>
+    <div class="d-flex align-items-center justify-content-between">
+        <div>
+            <canvas id="salaryTrendChart"></canvas>
+        </div>
+        <div>
+            <canvas id="departmentAbsenceChart"></canvas>
+        </div>
+        <div>
+            <canvas id="leaveTypeChart"></canvas>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        new Chart(document.getElementById('salaryTrendChart'), {
+            type: 'line',
+            data: {
+                labels: @Html.Raw(Json.Serialize(Model.SalaryTrends.Select(x => x.Month + "/" + x.Year))),
+                datasets: [{
+                    label: 'Total Payroll',
+                    data: @Html.Raw(Json.Serialize(Model.SalaryTrends.Select(x => x.TotalPayroll)))
+                }]
+            }
+        });
+
+        new Chart(document.getElementById('leaveTypeChart'), {
+            type: 'pie',
+            data: {
+                labels: @Html.Raw(Json.Serialize(Model.LeaveTypeCounts.Select(x => x.LeaveType))),
+                datasets: [{
+                    data: @Html.Raw(Json.Serialize(Model.LeaveTypeCounts.Select(x => x.Count)))
+                }]
+            }
+        });
+
+        new Chart(document.getElementById('departmentAbsenceChart'), {
+            type: 'bar',
+            data: {
+                labels: @Html.Raw(Json.Serialize(Model.DepartmentAbsences.Select(x => x.Department))),
+                datasets: [{
+                    label: 'Absences',
+                    data: @Html.Raw(Json.Serialize(Model.DepartmentAbsences.Select(x => x.AbsenceCount)))
+                }]
+            }
+        });
+    </script>
+}

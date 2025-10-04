@@ -1,0 +1,94 @@
+﻿@model IEnumerable<Payroll>
+
+@{
+    ViewData["Title"] = "Payrolls";
+    Layout = "/Features/Shared/_Layout.cshtml";
+}
+
+<h2>Payrolls</h2>
+
+@if(User.IsInRole("Admin") || User.IsInRole("HR"))
+{
+    <a asp-action="Add" class="btn btn-primary mt-2 mb-3">Add</a>
+}
+
+<table id="payrollsTable" class="table table-bordered">
+    <thead class="table-dark">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Employee)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Month)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Year)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BaseSalary)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalAllowances)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalDeductions)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NetPay)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Employee.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Month)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Year)
+                </td>
+                <td>
+                    $@Html.DisplayFor(modelItem => item.BaseSalary)
+                </td>
+                <td>
+                    $@Html.DisplayFor(modelItem => item.TotalAllowances)
+                </td>
+                <td>
+                    $@Html.DisplayFor(modelItem => item.TotalDeductions)
+                </td>
+                <td>
+                    $@Html.DisplayFor(modelItem => item.NetPay)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#payrollsTable').DataTable({
+                language: {
+                    search: "Search:",
+                    paginate: {
+                        previous: "Previous",
+                        next: "Next"
+                    },
+                    lengthMenu: "Show _MENU_ payrolls",
+                    info: "Showing _START_ to _END_ of _TOTAL_ payrolls"
+                }
+            });
+        });
+    </script>
+}

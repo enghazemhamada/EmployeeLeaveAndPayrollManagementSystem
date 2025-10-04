@@ -1,0 +1,119 @@
+﻿@model IEnumerable<LeaveRequest>
+
+@{
+    ViewData["Title"] = "Leave Requests";
+    Layout = "/Features/Shared/_Layout.cshtml";
+}
+
+<h2>Leave Requests</h2>
+
+@if(User.IsInRole("Employee"))
+{
+    <a asp-action="Add" class="btn btn-primary mt-2 mb-3">Add</a>
+}
+<div id="resultMessage"></div>
+
+<table id="leaveRequestsTable" class="table table-bordered">
+    <thead class="table-dark">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Employee)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StartDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EndDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Type)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Reason)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            @if(User.IsInRole("Admin") || User.IsInRole("Manager"))
+            {
+                <th>Actions</th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Employee.Name)
+                </td>
+                <td>
+                    @item.StartDate.ToString("yyyy-MM-dd")
+                </td>
+                <td>
+                    @item.EndDate.ToString("yyyy-MM-dd")
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Type)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Reason)
+                </td>
+                <td class="status-@item.Id">
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                @if(User.IsInRole("Admin") || User.IsInRole("Manager"))
+                {
+                    <td>
+                        @if(item.Status == LeaveStatus.Pending)
+                        {
+                            <button class="btn btn-success btn-sm btn-@item.Id" onclick="updateStatus(@item.Id, 'Approved')">Approve</button>
+                            <button class="btn btn-danger btn-sm btn-@item.Id" onclick="updateStatus(@item.Id, 'Rejected')">Reject</button>
+                        }
+                    </td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#leaveRequestsTable').DataTable({
+                language: {
+                    search: "Search:",
+                    paginate: {
+                        previous: "Previous",
+                        next: "Next"
+                    },
+                    lengthMenu: "Show _MENU_ leave requests",
+                    info: "Showing _START_ to _END_ of _TOTAL_ leave requests"
+                }
+            });
+        });
+
+        function updateStatus(id, status) {
+            $.ajax({
+                url: '@Url.Action("UpdateStatus", "Leave")',
+                type: 'POST',
+                data: { id: id, status: status },
+                success: function () {
+                    $(".btn-" + id).remove();
+                    $(".status-" + id).text(status);
+                    $("#resultMessage").html(`<div class="alert alert-success">Leave request ${status} successfully!</div>`);
+                },
+                error: function (xhr) {
+                    $("#resultMessage").html(`<div class="alert alert-danger">${xhr.responseText.message}</div>`);
+                }
+            });
+        }
+    </script>
+}
