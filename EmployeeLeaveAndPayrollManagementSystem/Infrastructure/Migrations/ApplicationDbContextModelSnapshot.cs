@@ -97,18 +97,69 @@ namespace EmployeeLeaveAndPayrollManagementSystem.Infrastructure.Migrations
                         {
                             Id = "10",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "3a288ec7-8fa7-4428-a958-b3ad358f39e3",
+                            ConcurrencyStamp = "924127c7-1f0b-495c-8e1e-abe2314e817a",
                             Email = "admin@test.com",
                             EmailConfirmed = true,
                             EmployeeId = 1,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@TEST.COM",
                             NormalizedUserName = "ADMIN@TEST.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEKyqxhx/YBxbov0sWvnp34MtNGY80J0n1+TokZqamA+ysWfv6IK+Jdf3fGLWTaVBHQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEMKHRfiovUPctg2u4VcDoqNZjP7UM+m547xT7vY0xAZ7rtObqEW+i3tGNr05G7gBxw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "b901f569-8068-43ce-bd25-94f048415d79",
+                            SecurityStamp = "71ec5ebc-b842-4aa2-8870-9440f626aa38",
                             TwoFactorEnabled = false,
                             UserName = "admin@test.com"
+                        },
+                        new
+                        {
+                            Id = "11",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "0e3ffc56-ceeb-4a50-b337-8d7dd33d969a",
+                            Email = "manager@test.com",
+                            EmailConfirmed = true,
+                            EmployeeId = 2,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "MANAGER@TEST.COM",
+                            NormalizedUserName = "MANAGER@TEST.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAELHeIKzlWA4gabQKmjrY+7SG9/YuHPWDaMD6FmLveN7/jPpEtQ5NwbD+rjOzeUVonA==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "c9009611-4ea5-4bba-aeb0-e25b63c80e41",
+                            TwoFactorEnabled = false,
+                            UserName = "manager@test.com"
+                        },
+                        new
+                        {
+                            Id = "12",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "2403f745-a9d1-4c69-ac17-8ea80bb8d6ef",
+                            Email = "employee@test.com",
+                            EmailConfirmed = true,
+                            EmployeeId = 3,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "EMPLOYEE@TEST.COM",
+                            NormalizedUserName = "EMPLOYEE@TEST.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEFe39tKiG4tRHXrh1TO0QxCZZQ+HzzbWZwQLbke5bJ2K7Mvqf+ZBzMdxJ9WHQGItlg==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "1462bd64-fe3c-456f-93b9-86b96a182273",
+                            TwoFactorEnabled = false,
+                            UserName = "employee@test.com"
+                        },
+                        new
+                        {
+                            Id = "13",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "a54d9b59-6683-4a16-8576-5bcd355b61fd",
+                            Email = "hr@test.com",
+                            EmailConfirmed = true,
+                            EmployeeId = 4,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "HR@TEST.COM",
+                            NormalizedUserName = "HR@TEST.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEGPvhxcVapOyZNw1gsfhuDG6PAVVR/tYm8rKGtw53iTu8E0vyY7Jd6ZI8TLq424/iA==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "d490b3df-4ff7-4a72-a962-e5c5a69e7917",
+                            TwoFactorEnabled = false,
+                            UserName = "hr@test.com"
                         });
                 });
 
@@ -157,12 +208,43 @@ namespace EmployeeLeaveAndPayrollManagementSystem.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            BaseSalary = 100m,
+                            BaseSalary = 0m,
                             Department = "IT",
-                            HireDate = new DateTime(2025, 10, 4, 17, 44, 4, 89, DateTimeKind.Local).AddTicks(7038),
-                            LeaveBalance = 20,
+                            HireDate = new DateTime(2025, 10, 7, 21, 53, 54, 546, DateTimeKind.Local).AddTicks(6795),
+                            LeaveBalance = 0,
                             Name = "Hazem Hamada",
                             Position = "Admin"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            BaseSalary = 15000m,
+                            Department = "Sales",
+                            HireDate = new DateTime(2025, 10, 7, 21, 53, 54, 546, DateTimeKind.Local).AddTicks(6872),
+                            LeaveBalance = 20,
+                            Name = "Ahmed Manager",
+                            Position = "Sales Manager"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            BaseSalary = 8000m,
+                            Department = "Support",
+                            HireDate = new DateTime(2025, 10, 7, 21, 53, 54, 546, DateTimeKind.Local).AddTicks(6887),
+                            LeaveBalance = 15,
+                            ManagerId = 2,
+                            Name = "Omar Employee",
+                            Position = "Support Engineer"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            BaseSalary = 12000m,
+                            Department = "HR",
+                            HireDate = new DateTime(2025, 10, 7, 21, 53, 54, 546, DateTimeKind.Local).AddTicks(6902),
+                            LeaveBalance = 18,
+                            Name = "Sara HR",
+                            Position = "HR Specialist"
                         });
                 });
 
@@ -198,6 +280,18 @@ namespace EmployeeLeaveAndPayrollManagementSystem.Infrastructure.Migrations
                     b.HasIndex("EmployeeId");
 
                     b.ToTable("LeaveRequests");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            EmployeeId = 3,
+                            EndDate = new DateTime(2025, 9, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Reason = "Family vacation",
+                            StartDate = new DateTime(2025, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = 0,
+                            Type = 0
+                        });
                 });
 
             modelBuilder.Entity("EmployeeLeaveAndPayrollManagementSystem.Features.Payrolls.Allowance", b =>
@@ -223,6 +317,22 @@ namespace EmployeeLeaveAndPayrollManagementSystem.Infrastructure.Migrations
                     b.HasIndex("PayrollId");
 
                     b.ToTable("Allowances");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Amount = 1000m,
+                            PayrollId = 1,
+                            Type = "Bonus"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Amount = 1000m,
+                            PayrollId = 1,
+                            Type = "Commission"
+                        });
                 });
 
             modelBuilder.Entity("EmployeeLeaveAndPayrollManagementSystem.Features.Payrolls.Deduction", b =>
@@ -248,6 +358,22 @@ namespace EmployeeLeaveAndPayrollManagementSystem.Infrastructure.Migrations
                     b.HasIndex("PayrollId");
 
                     b.ToTable("Deductions");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Amount = 300m,
+                            PayrollId = 1,
+                            Type = "Tax"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Amount = 200m,
+                            PayrollId = 1,
+                            Type = "Insurance"
+                        });
                 });
 
             modelBuilder.Entity("EmployeeLeaveAndPayrollManagementSystem.Features.Payrolls.Payroll", b =>
@@ -284,6 +410,19 @@ namespace EmployeeLeaveAndPayrollManagementSystem.Infrastructure.Migrations
                     b.HasIndex("EmployeeId");
 
                     b.ToTable("Payrolls");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            BaseSalary = 15000m,
+                            EmployeeId = 3,
+                            Month = 9,
+                            NetPay = 16500m,
+                            TotalAllowances = 2000m,
+                            TotalDeductions = 500m,
+                            Year = 2025
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -430,6 +569,21 @@ namespace EmployeeLeaveAndPayrollManagementSystem.Infrastructure.Migrations
                         {
                             UserId = "10",
                             RoleId = "1"
+                        },
+                        new
+                        {
+                            UserId = "11",
+                            RoleId = "3"
+                        },
+                        new
+                        {
+                            UserId = "12",
+                            RoleId = "4"
+                        },
+                        new
+                        {
+                            UserId = "13",
+                            RoleId = "2"
                         });
                 });
 

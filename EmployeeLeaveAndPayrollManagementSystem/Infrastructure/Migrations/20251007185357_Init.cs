@@ -295,17 +295,75 @@ namespace EmployeeLeaveAndPayrollManagementSystem.Infrastructure.Migrations
             migrationBuilder.InsertData(
                 table: "Employees",
                 columns: new[] { "Id", "BaseSalary", "Department", "HireDate", "LeaveBalance", "LeaveDate", "ManagerId", "Name", "Position" },
-                values: new object[] { 1, 100m, "IT", new DateTime(2025, 10, 4, 17, 44, 4, 89, DateTimeKind.Local).AddTicks(7038), 20, null, null, "Hazem Hamada", "Admin" });
+                values: new object[,]
+                {
+                    { 1, 0m, "IT", new DateTime(2025, 10, 7, 21, 53, 54, 546, DateTimeKind.Local).AddTicks(6795), 0, null, null, "Hazem Hamada", "Admin" },
+                    { 2, 15000m, "Sales", new DateTime(2025, 10, 7, 21, 53, 54, 546, DateTimeKind.Local).AddTicks(6872), 20, null, null, "Ahmed Manager", "Sales Manager" },
+                    { 4, 12000m, "HR", new DateTime(2025, 10, 7, 21, 53, 54, 546, DateTimeKind.Local).AddTicks(6902), 18, null, null, "Sara HR", "HR Specialist" }
+                });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "EmployeeId", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "10", 0, "3a288ec7-8fa7-4428-a958-b3ad358f39e3", "admin@test.com", true, 1, false, null, "ADMIN@TEST.COM", "ADMIN@TEST.COM", "AQAAAAIAAYagAAAAEKyqxhx/YBxbov0sWvnp34MtNGY80J0n1+TokZqamA+ysWfv6IK+Jdf3fGLWTaVBHQ==", null, false, "b901f569-8068-43ce-bd25-94f048415d79", false, "admin@test.com" });
+                values: new object[,]
+                {
+                    { "10", 0, "924127c7-1f0b-495c-8e1e-abe2314e817a", "admin@test.com", true, 1, false, null, "ADMIN@TEST.COM", "ADMIN@TEST.COM", "AQAAAAIAAYagAAAAEMKHRfiovUPctg2u4VcDoqNZjP7UM+m547xT7vY0xAZ7rtObqEW+i3tGNr05G7gBxw==", null, false, "71ec5ebc-b842-4aa2-8870-9440f626aa38", false, "admin@test.com" },
+                    { "11", 0, "0e3ffc56-ceeb-4a50-b337-8d7dd33d969a", "manager@test.com", true, 2, false, null, "MANAGER@TEST.COM", "MANAGER@TEST.COM", "AQAAAAIAAYagAAAAELHeIKzlWA4gabQKmjrY+7SG9/YuHPWDaMD6FmLveN7/jPpEtQ5NwbD+rjOzeUVonA==", null, false, "c9009611-4ea5-4bba-aeb0-e25b63c80e41", false, "manager@test.com" },
+                    { "13", 0, "a54d9b59-6683-4a16-8576-5bcd355b61fd", "hr@test.com", true, 4, false, null, "HR@TEST.COM", "HR@TEST.COM", "AQAAAAIAAYagAAAAEGPvhxcVapOyZNw1gsfhuDG6PAVVR/tYm8rKGtw53iTu8E0vyY7Jd6ZI8TLq424/iA==", null, false, "d490b3df-4ff7-4a72-a962-e5c5a69e7917", false, "hr@test.com" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Employees",
+                columns: new[] { "Id", "BaseSalary", "Department", "HireDate", "LeaveBalance", "LeaveDate", "ManagerId", "Name", "Position" },
+                values: new object[] { 3, 8000m, "Support", new DateTime(2025, 10, 7, 21, 53, 54, 546, DateTimeKind.Local).AddTicks(6887), 15, null, 2, "Omar Employee", "Support Engineer" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
                 columns: new[] { "RoleId", "UserId" },
-                values: new object[] { "1", "10" });
+                values: new object[,]
+                {
+                    { "1", "10" },
+                    { "3", "11" },
+                    { "2", "13" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUsers",
+                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "EmployeeId", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
+                values: new object[] { "12", 0, "2403f745-a9d1-4c69-ac17-8ea80bb8d6ef", "employee@test.com", true, 3, false, null, "EMPLOYEE@TEST.COM", "EMPLOYEE@TEST.COM", "AQAAAAIAAYagAAAAEFe39tKiG4tRHXrh1TO0QxCZZQ+HzzbWZwQLbke5bJ2K7Mvqf+ZBzMdxJ9WHQGItlg==", null, false, "1462bd64-fe3c-456f-93b9-86b96a182273", false, "employee@test.com" });
+
+            migrationBuilder.InsertData(
+                table: "LeaveRequests",
+                columns: new[] { "Id", "EmployeeId", "EndDate", "Reason", "StartDate", "Status", "Type" },
+                values: new object[] { 1, 3, new DateTime(2025, 9, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), "Family vacation", new DateTime(2025, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, 0 });
+
+            migrationBuilder.InsertData(
+                table: "Payrolls",
+                columns: new[] { "Id", "BaseSalary", "EmployeeId", "Month", "NetPay", "TotalAllowances", "TotalDeductions", "Year" },
+                values: new object[] { 1, 15000m, 3, 9, 16500m, 2000m, 500m, 2025 });
+
+            migrationBuilder.InsertData(
+                table: "Allowances",
+                columns: new[] { "Id", "Amount", "PayrollId", "Type" },
+                values: new object[,]
+                {
+                    { 1, 1000m, 1, "Bonus" },
+                    { 2, 1000m, 1, "Commission" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUserRoles",
+                columns: new[] { "RoleId", "UserId" },
+                values: new object[] { "4", "12" });
+
+            migrationBuilder.InsertData(
+                table: "Deductions",
+                columns: new[] { "Id", "Amount", "PayrollId", "Type" },
+                values: new object[,]
+                {
+                    { 1, 300m, 1, "Tax" },
+                    { 2, 200m, 1, "Insurance" }
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Allowances_PayrollId",
